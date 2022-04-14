@@ -19,3 +19,11 @@ def index():
 @app.route('/directory')
 def directory():
     return render_template('directory.html')
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+@app.route('/login')
+def login():
+    return render_template('login.hmtl')
