@@ -1,7 +1,7 @@
 
-from profanity_filter import ProfanityFilter
+# from profanity_filter import ProfanityFilter
 
-pf = ProfanityFilter()
-string = 'Fuck this'
+# pf = ProfanityFilter()
+# string = 'Fuck this'
 
-print(pf.censor(string))
+# print(pf.censor(string))
