@@ -61,8 +61,6 @@ def login():
 
 
 @app.route('/signup' , methods = ['GET' , 'POST'])
-def signup():
-    app.route('/signup' , methods = ['GET' , 'POST'])
 def sign_up():
     if request.method == 'POST':
         users = db.users
