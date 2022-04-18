@@ -9,12 +9,15 @@
 </head>
 <header>
     <a href="/">Home</a>
+    {% if not session %}
     <a href="/signup">Sign up</a>
     <a href="/login">Log in</a>
+    {% else %}
+    <a href="/logout">Logout</a>
+    {% endif %}
     <a href="/directory">Directory</a>
     <a href="/thread">Thread</a>
     <a href="/profile">Profile</a>
-    <a href="/logout">Logout</a>
 </header>
 
 <body>

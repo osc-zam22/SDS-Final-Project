@@ -3,10 +3,19 @@
 {% block body %}
 <h1>Login</h1>
     <div>
+        {% if prompt %}
+        <h1>{{prompt}}</h1>
+        {% endif %}
         <form action="" method="POST">
+<<<<<<< HEAD
             <input type="text" name="username" value="" placeholder="user">
             <input type="password" name="password" value="" placeholder="password">
             <input type="submit">
+=======
+            <input type="text" name="Email/Username" value="" placeholder="Email/Username">
+            <input type="password" name="Password" value="" placeholder="Password">
+            <button>Log in</button>
+>>>>>>> 9e1eb2fa48a81305295a4ce1ba534502aae35524
         </form>
     </div>
 {% endblock %}

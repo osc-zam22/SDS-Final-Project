@@ -36,20 +36,31 @@ def directory():
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        users = db.users
+        users = db.Users
 
+<<<<<<< HEAD
         user = users.find_one({"username": request.form["username"]})
+=======
+        user_email = users.find_one({"Email": request.form["Email/Username"]})
+        user_username = users.find_one({"Username": request.form["Email/Username"]})
+        user = None
+>>>>>>> 9e1eb2fa48a81305295a4ce1ba534502aae35524
 
         #if user with email exists
-        if user:
+        if user_username or user_email:
+            if user_email:
+                user = user_email
+            elif user_username:
+                user = user_username
+
             #Gets actual password tied to user
-            actual_password = user['password']
+            actual_password = user['Password']
             #encodes attempted password
-            attempted_password = request.form['password'].encode("utf-8")
+            attempted_password = request.form['Password'].encode("utf-8")
 
             if bcrypt.checkpw(attempted_password, actual_password):
                 #store in session
-                session['email'] = request.form['email']
+                session['Email/Username'] = request.form['Email/Username']
                 return redirect(url_for('index'))
             else:
                 return render_template('login.html', prompt = "Invalid password... try again.")
@@ -63,16 +74,16 @@ def login():
 @app.route('/signup' , methods = ['GET' , 'POST'])
 def sign_up():
     if request.method == 'POST':
-        users = db.users
+        users = db.Users
 
-        existing_user = users.find_one({"email": request.form['email']})
+        existing_user = users.find_one({"Email": request.form['Email']})
 
         if not existing_user:
-            username = request.form['username']
-            email = request.form['email']
+            username = request.form['Username']
+            email = request.form['Email']
             
             #encrypting password
-            password = request.form['password'].encode("utf-8")
+            password = request.form['Password'].encode("utf-8")
 
             #Makes sure all fields were filled in
             if not username or not email or not password:
@@ -82,10 +93,10 @@ def sign_up():
             hashed_password = bcrypt.hashpw(password, salt)
 
             #adding to users database
-            users.insert_one({'userame': username, 'email': email, 'password': hashed_password})
+            users.insert_one({'Username': username, 'Email': email, 'Password': hashed_password})
 
             #creating new session
-            session['email'] = request.form['email']
+            session['Email'] = request.form['Email']
 
             return redirect(url_for('index'))
 
@@ -105,4 +116,5 @@ def profile():
 
 @app.route('/logout')
 def logout():
+    session.clear()
     return render_template('index.html')
