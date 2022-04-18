@@ -38,7 +38,7 @@ def login():
     if request.method == 'POST':
         users = db.users
 
-        user = users.find_one({"email": request.form["email"]})
+        user = users.find_one({"username": request.form["username"]})
 
         #if user with email exists
         if user:
