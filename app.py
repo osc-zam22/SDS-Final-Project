@@ -102,9 +102,13 @@ def sign_up():
         return render_template("signup.html")
     
 
+
+@app.route('/thread/<title>')
 @app.route('/thread')
-def thread():
-    return render_template('thread.html')
+def thread(title):
+
+    posts = db.Posts.find({"Film/Show" : title}) 
+    return render_template('thread.html' , posts = posts)
 
 @app.route('/profile')
 def profile():
@@ -114,3 +118,5 @@ def profile():
 def logout():
     session.clear()
     return render_template('index.html')
+
+
