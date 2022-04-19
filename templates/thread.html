@@ -6,8 +6,8 @@
 <div>
     {% for post in posts %}
     <div class="post">
-        <h1 class="author">{{Username}</h1>
-        <p>
+        <h1 class="author">{{post.Username}</h1>
+        <p class="post-text">
             {{post.Content}}
         </p>
     </div>
