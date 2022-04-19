@@ -1,7 +1,9 @@
+def likes(like):
+    return like + 1
 
-# from profanity_filter import ProfanityFilter
+def increment_num_ratings(num_ratings):
+    return num_ratings + 1
 
-# pf = ProfanityFilter()
-# string = 'Fuck this'
+def rating(num_ratings , curr_ratings , new_rating):
+    return (curr_ratings + new_rating) / num_ratings 
 
-# print(pf.censor(string))
