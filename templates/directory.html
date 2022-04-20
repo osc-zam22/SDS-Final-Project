@@ -2,4 +2,31 @@
 
 {% block body %}
 <h1>Directory</h1>
+    {% if show_all %}
+    {# show all branch #}
+    <div class="directory-container">
+        <h2>movies</h2>
+        {% for film in films %}
+        <div class="film">{{film.Name}}</div>
+        {% endfor %}
+
+        <div class="directory-container">
+            <h2>shows</h2>
+            {% for show in shows %}
+            <div class="film">{{show.Name}}</div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+    {% if not show_all %}
+    {# only episodes branch #}
+    <div class="directory-container">
+        <h2>shows</h2>
+        {% for show in shows %}
+        <div class="film">{{show.Name}}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 {% endblock %}

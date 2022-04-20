@@ -29,7 +29,18 @@ def index():
     return render_template('index.html')
 
 @app.route('/directory')
-def directory():
+@app.route('/directory/<title>')
+def directory(title=None):
+    if not title:
+        show_all = True
+        films = db.Films.find()
+        shows = db.Shows.find()
+        return render_template('directory.html' , films = films , shows = shows , show_all = show_all)
+    else:
+        show_all = False
+        shows = db.Shows.find({'Title' : title})
+        return render_template('directory.html' , shows = shows , show_all = show_all)
+
     return render_template('directory.html')
 
 @app.route('/login', methods = ['GET', 'POST'])
