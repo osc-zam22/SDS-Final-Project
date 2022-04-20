@@ -55,7 +55,8 @@ def login():
 
             if bcrypt.checkpw(attempted_password, actual_password):
                 #store in session
-                session['Email/Username'] = request.form['Email/Username']
+                user_email = user['Email']
+                session['Email'] = user_email
                 return redirect(url_for('index'))
             else:
                 return render_template('login.html', prompt = "Invalid password... try again.")
@@ -114,6 +115,7 @@ def profile():
     if not session:
         return redirect(url_for('index'))
     profile = db.Users.find_one({'Email' : session['Email']})
+  
     return render_template('profile.html' , profile = profile)
 
 @app.route('/logout')
