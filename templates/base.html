@@ -6,23 +6,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Layout-page</title>
     <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/base.css">
 </head>
-<header>
-    <a href="/">Home</a>
-    {% if not session %}
-    <a href="/signup">Sign up</a>
-    <a href="/login">Log in</a>
-    {% else %}
-    <a href="/logout">Logout</a>
-    {% endif %}
-    <a href="/directory">Directory</a>
-    <a href="/thread">Thread</a>
-    <a href="/profile">Profile</a>
-</header>
 
 <body>
-    
-{% block body %} {% endblock %}
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            {% if not session %}
+            <li><a href="/signup">Sign up</a></li>
+            <li><a href="/login">Log in</a></li>
+            {% else %}
+            <li><a href="/logout">Logout</a></li>
+            {% endif %}
+            <li><a href="/directory">Directory</a></li>
+            <li><a href="/thread">Thread</a></li>
+            <li><a href="/profile">Profile</a></li>
+        </ul>
+    </nav>
+
+    <header>
+        <div class="header_container">
+            <div class="header_text">
+                <h1>Marverse</h1>
+            </div>
+        </div>
+    </header>
+
+
+        
+    {% block body %} {% endblock %}
 
 </body>
 
