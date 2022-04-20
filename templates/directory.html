@@ -7,13 +7,17 @@
     <div class="directory-container">
         <h2>movies</h2>
         {% for film in films %}
-        <div class="film">{{film.Name}}</div>
+        <a href={{url_for('thread' , title = film.Name)}}>
+            <div class="film">{{film.Name}}</div>
+        </a>
         {% endfor %}
 
         <div class="directory-container">
             <h2>shows</h2>
             {% for show in shows %}
-            <div class="film">{{show.Name}}</div>
+            <a href={{ url_for('directory' , title = show.Name) }}>
+                <div class="show">{{show.Name}}</div>
+            </a>
             {% endfor %}
         </div>
     </div>

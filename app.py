@@ -29,7 +29,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/directory')
-@app.route('/directory/<title>')
+@app.route('/directory/<title>' , methods=['GET' , 'POST'])
 def directory(title=None):
     if not title:
         show_all = True
@@ -114,12 +114,21 @@ def sign_up():
     
 
 
+@app.route('/thread/<title>/<episode>')
 @app.route('/thread/<title>')
-@app.route('/thread')
-def thread(title):
-
-    posts = db.Posts.find({"Film/Show" : title}) 
-    return render_template('thread.html' , posts = posts)
+@app.route('/thread/<postID>')
+def thread(title=None , episode=None , postId=None):
+    if postId:
+        value = 0
+        post = db.Posts.find_one({'_id' : ObjectId(postId)})
+        return render_template('thread.html' , post = post , value = value)
+    # if not episode and film:
+    #     film = db.Films.find({"Film" : title}) 
+    #     return render_template('thread.html' , film = film)
+    # # elif episode and show:
+    #     show = db.Shows.find_one({''})
+    # else:
+    #     comments = db.Posts.find()
 
 @app.route('/profile')
 def profile():
