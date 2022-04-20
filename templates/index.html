@@ -4,39 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Index</title>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/header-footer.css">
 </head>
 <body>
     <div class="index-container">
-        <div class="window letter-container">
-            <div class="hover">
-                <h1>M</h1>
-            </div>
-            <div class="hover">
-                <h1>A</h1>
-            </div>
-            <div class="hover">
-                <h1>R</h1>
-            </div>
-            <div class="hover">
-                <h1>V</h1>
-            </div>
-            <div class="hover">
-                <h1>E</h1>
-            </div>
-            <div class="hover">
-                <h1>R</h1>
-            </div>
-            <div class="hover">
-                <h1>S</h1>
-            </div>
-            <div class="hover">
-                <h1>E</h1>
-            </div>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                {% if not session %}
+                <li><a href="/signup">Sign up</a></li>
+                <li><a href="/login">Log in</a></li>
+                {% else %}
+                <li><a href="/logout">Logout</a></li>
+                {% endif %}
+                <li><a href="/directory">Directory</a></li>
+                <li><a href="/thread">Thread</a></li>
+                <li><a href="/profile">Profile</a></li>
+            </ul>
+        </nav>
+
+        <div class="window header-container">
+            <div class="hover"><h1>M</h1></div>
+            <div class="hover"><h1>A</h1></div>
+            <div class="hover"><h1>R</h1></div>
+            <div class="hover"><h1>V</h1></div>
+            <div class="hover"><h1>E</h1></div>
+            <div class="hover"><h1>R</h1></div>           
+            <div class="hover"><h1>S</h1></div>          
+            <div class="hover"><h1>E</h1></div>
         </div>
 
         <div class="window footer">
-            <h1>Footer should go here</h1>
         </div>
     </div>
     
