@@ -1,0 +1,71 @@
+ /* Refactored from https://codepen.io/oliviale/pen/YgzNzK */
+
+body {
+    background: #fff;
+    font-family: "Comfortaa", sans-serif;
+    position: relative;
+}
+* {
+    box-sizing: border-box;
+    margin: 0px;
+}
+.index-container {
+    text-align: center;
+    text-transform: uppercase;
+    scroll-snap-type: y mandatory;
+    position: relative;
+    height: 100vh;
+    overflow-y: scroll;
+}
+h1 {
+    position: relative;
+    color: #fff;
+    font: 900 60px Montserrat;
+    text-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+.window {
+    position: relative;
+    padding: 5em;
+    height: 100vh;
+    overflow: hidden;
+    scroll-snap-align: center;
+}
+.window:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: radial-gradient(rgba(0, 0, 0, 0.3), transparent);
+    opacity: 0;
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.window:hover:before {
+    opacity: 0.5;
+}
+
+.letter-container {
+    display: grid;
+    grid: 100% / repeat(8, 1fr);
+    padding: 5em 15em;
+    background: url("../images/index-background.jpg") center center / cover;
+}
+.letter-container .hover {
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+.letter-container h1 {
+    color: transparent;
+    text-align: 0 1px 1px;
+    -webkit-text-stroke: 2px #fff;
+    text-shadow: none;
+    transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.letter-container .hover:hover h1 {
+    transform: scale(1.5);
+    color: #fff;
+    -webkit-text-stroke: 2px transparent;
+    text-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
