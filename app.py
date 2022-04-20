@@ -32,7 +32,6 @@ def index():
 def directory():
     return render_template('directory.html')
 
-@app.route('/login')
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -89,7 +88,7 @@ def sign_up():
             hashed_password = bcrypt.hashpw(password, salt)
 
             #adding to users database
-            users.insert_one({'Username': username, 'Email': email, 'Password': hashed_password})
+            users.insert_one({'Username': username, 'Email': email, 'Password': hashed_password , 'Posts' : []})
 
             #creating new session
             session['Email'] = request.form['Email']
@@ -112,7 +111,10 @@ def thread(title):
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    if not session:
+        return redirect(url_for('index'))
+    profile = db.Users.find_one({'Email' : session['Email']})
+    return render_template('profile.html' , profile = profile)
 
 @app.route('/logout')
 def logout():
