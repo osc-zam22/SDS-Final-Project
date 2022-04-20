@@ -2,4 +2,13 @@
 
 {% block body %}
 <h1>Profile</h1>
+ <p>{{profile.Username}}</p>
+ <p>{{profile.Email}}</p>
+ <div class="post-history">
+     {% for post in profile.Posts %}
+     <div class="post-container">
+        <p>{{post}}</p>
+     </div>
+     {% endfor %}
+ </div>
 {% endblock %}

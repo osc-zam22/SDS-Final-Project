@@ -29,10 +29,20 @@ def index():
     return render_template('index.html')
 
 @app.route('/directory')
-def directory():
+@app.route('/directory/<title>')
+def directory(title=None):
+    if not title:
+        show_all = True
+        films = db.Films.find()
+        shows = db.Shows.find()
+        return render_template('directory.html' , films = films , shows = shows , show_all = show_all)
+    else:
+        show_all = False
+        shows = db.Shows.find({'Title' : title})
+        return render_template('directory.html' , shows = shows , show_all = show_all)
+
     return render_template('directory.html')
 
-@app.route('/login')
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -56,7 +66,8 @@ def login():
 
             if bcrypt.checkpw(attempted_password, actual_password):
                 #store in session
-                session['Email/Username'] = request.form['Email/Username']
+                user_email = user['Email']
+                session['Email'] = user_email
                 return redirect(url_for('index'))
             else:
                 return render_template('login.html', prompt = "Invalid password... try again.")
@@ -89,7 +100,7 @@ def sign_up():
             hashed_password = bcrypt.hashpw(password, salt)
 
             #adding to users database
-            users.insert_one({'Username': username, 'Email': email, 'Password': hashed_password})
+            users.insert_one({'Username': username, 'Email': email, 'Password': hashed_password , 'Posts' : []})
 
             #creating new session
             session['Email'] = request.form['Email']
@@ -112,7 +123,11 @@ def thread(title):
 
 @app.route('/profile')
 def profile():
-    return render_template('profile.html')
+    if not session:
+        return redirect(url_for('index'))
+    profile = db.Users.find_one({'Email' : session['Email']})
+  
+    return render_template('profile.html' , profile = profile)
 
 @app.route('/logout')
 def logout():
