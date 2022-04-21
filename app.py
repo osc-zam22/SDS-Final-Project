@@ -5,6 +5,7 @@ from bson.objectid import ObjectId
 import secrets
 import bcrypt
 import random
+import os
 
 #Initialize application
 app = Flask(__name__)
@@ -12,6 +13,7 @@ app = Flask(__name__)
 #Connecting to Marverse database
 app.config['MONGO_DBNAME'] = 'Marverse'
 app.config['MONGO_URI'] = "mongodb+srv://admin:sY6xkooh42p1oyK1@cluster0.uhnly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+# app.config['MONGO_URI'] = os.environ.get('MONGO.URI')
 
 #Initializing pymongo
 mongo = PyMongo(app)
