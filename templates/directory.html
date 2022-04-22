@@ -4,15 +4,16 @@
 <h1>Directory</h1>
     {% if show_all %}
     {# show all branch #}
-    <div class="directory-container">
-        <h2>movies</h2>
-        {% for film in films %}
-        <a href={{ url_for( 'thread' , title = film.Name ) }}>
-            <div class="film">
-                <p>{{film.Name}}</p>
-                <p>{{film.Rating}}</p>
-            </div>
-        </a>
+        <div class="directory-container">
+            <h2>movies</h2>
+            {% for film in films %}
+            <a href={{ url_for( 'thread' , title = film.Name ) }}>
+                <div class="film">
+                    <p>{{film.Name}}</p>
+                    <p>{{film.Rating}}</p>
+                </div>
+            </a>
+        </div>
         {% endfor %}
 
         <div class="directory-container">
@@ -27,7 +28,7 @@
             </a>
             {% endfor %}
         </div>
-    </div>
+
     {% endif %}
 
     {% if not show_all %}
@@ -35,8 +36,10 @@
     <div class="directory-container">
         <h2>{{title}}</h2>
         {% for show in shows %}
-        <p>{{show.Name}}</p>
-        <p>{{show.Rating}}</p>
+            <div class="show">
+                <p>{{show.Name}}</p>
+                <p>{{show.Rating}}</p>
+            </div>
         {% endfor %}
     </div>
     {% endif %}

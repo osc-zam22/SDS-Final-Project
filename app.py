@@ -12,13 +12,13 @@ app = Flask(__name__)
 
 #Connecting to Marverse database
 app.config['MONGO_DBNAME'] = 'Marverse'
-app.config['MONGO_URI'] = "mongodb+srv://admin:sY6xkooh42p1oyK1@cluster0.uhnly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-# app.config['MONGO_URI'] = os.environ.get('MONGO.URI')
+# app.config['MONGO_URI'] = "mongodb+srv://admin:sY6xkooh42p1oyK1@cluster0.uhnly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+app.config['MONGO_URI'] = os.environ.get('MONGO_URI')
 
 #Initializing pymongo
 mongo = PyMongo(app)
-client = pymongo.MongoClient("mongodb+srv://admin:sY6xkooh42p1oyK1@cluster0.uhnly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-
+# client = pymongo.MongoClient("mongodb+srv://admin:sY6xkooh42p1oyK1@cluster0.uhnly.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+client = pymongo.MongoClient(os.environ.get('MONGO_URI'))
 #Initializing database
 db = client.Marverse
 
