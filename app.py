@@ -35,13 +35,16 @@ def directory():
     return render_template('directory.html')
 
 @app.route('/sub_directory/<film>')
-def sub_directory(film):
+@app.route('/sub_directory/<title>')
+def sub_directory(film=None , title=None):
     if film == '0':
         contents = db.Films.find()
         return render_template('sub-directory.html' , contents = contents , category=0)
     elif film == '1':
         contents = db.Shows.find()
         return render_template('sub-directory.html' , contents= contents, category=1)
+    episodes = db.Shows.find({'Title' : title} , {'Episodes':1})
+    return render_template('sub-directory.html' , title=title , episodes = episodes)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
