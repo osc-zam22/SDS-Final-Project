@@ -1,11 +1,23 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1>Signup</h1>
-<form action="" method="POST">
-    <input type="email" value="" name="Email" placeholder="Email">
-    <input type="text" value="" name="Username" placeholder="User">
-    <input type="password" value="" name="Password" placeholder="Password">
-    <button>Sign up</button>
-</form>
+<div class="content">
+
+    <form class="container" method="POST" action="/signup">
+        <h3>Sign Up Here</h3>
+
+        <label for="Username">Name</label>
+        <input type="text" name="Username" value="" placeholder="Enter Username">
+        <label for="email">Email</label>
+        <input type="email" name="Email" value="" placeholder="Enter Email">
+        <label for="password">Password</label>
+        <input type="password" name="Password"  value="" placeholder="Enter Password">
+
+        {% if prompt %}
+        <p3>{{prompt}}</p3>
+        {% endif %}
+
+        <button>Sign up</button>
+    </form>
+</div>
 {% endblock %}

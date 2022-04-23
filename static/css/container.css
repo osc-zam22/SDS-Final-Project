@@ -1,0 +1,93 @@
+/* Taken from Unit 3 Project */
+
+.container{
+    height: auto;
+    width: 400px;
+    background-color: rgba(175, 12, 12, 0.548);
+    position: relative;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.1);
+    box-shadow: 0 0 40px rgba(8,7,16,0.6);
+    padding: 50px 35px;
+    margin-top: 485px;
+}
+
+.container *{
+    font-family: 'Poppins',sans-serif;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+}
+
+.container h3{
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+.container h4{
+    font-size: 25px;
+    font-weight: 500;
+    line-height: 35px;
+    text-align: left;
+}
+
+.container label{
+    display: block;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.container input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    color: white;
+    background-color: rgba(255,255,255,0.07);
+    border-radius: 3px;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.container button{
+    margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #ff0000;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:all 0.6s ease 0s;
+}
+
+.container button:hover{
+    color: rgb(255, 255, 255);
+    background-color: #ff0000;
+}
+
+.container p3{
+    color: red;
+    margin: auto;
+    font-weight: bold;
+}
+
+.container img{
+    width:700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.format-user h3, .format-user h4 , .format-user p{
+    text-align: center;
+}
