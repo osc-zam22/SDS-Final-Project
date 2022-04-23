@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Marverse</title>
     <link rel="stylesheet" href="../static/css/header-footer.css">
 </head>
 <body>
@@ -11,15 +11,14 @@
         <nav>
             <ul>
                 <li><a href="/">Home</a></li>
+                <li><a href="/directory">Directory</a></li>
                 {% if not session %}
                 <li><a href="/signup">Sign up</a></li>
                 <li><a href="/login">Log in</a></li>
                 {% else %}
+                <li><a href="/profile">Profile</a></li>
                 <li><a href="/logout">Logout</a></li>
                 {% endif %}
-                <li><a href="/directory">Directory</a></li>
-                <li><a href="/thread">Thread</a></li>
-                <li><a href="/profile">Profile</a></li>
             </ul>
         </nav>
 
