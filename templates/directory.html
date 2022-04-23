@@ -5,13 +5,13 @@
     <div class="directory-container">
         
         <div class="option">
-            <a href={{url_for('sub_directory' , film= True )}}>
+            <a href={{url_for('sub_directory' , film= '0' )}}>
                 <p>Film</p>
             </a>
         </div>
 
         <div class="option">
-            <a href={{ url_for('sub_directory' , film = False )}}>
+            <a href={{ url_for('sub_directory' , film = '1' )}}>
                 <p>Shows</p>
             </a>
         </div>
