@@ -31,19 +31,17 @@ def index():
     return render_template('index.html')
 
 @app.route('/directory')
-@app.route('/directory/<title>' , methods=['GET' , 'POST'])
-def directory(title=None):
-    if not title:
-        show_all = True
-        films = db.Films.find()
-        shows = db.Shows.find()
-        return render_template('directory.html' , films = films , shows = shows , show_all = show_all)
-    else:
-        show_all = False
-        shows = db.Shows.find({'Title' : title})
-        return render_template('directory.html' , shows = shows , show_all = show_all)
-
+def directory():
     return render_template('directory.html')
+
+@app.route('/sub_directory/<film>')
+def sub_directory(film):
+    if film:
+        films = db.Films.find()
+        return render_template('sub-directory.html' , films = films , category="film")
+    elif not film:
+        shows = db.Shows.find()
+        return render_template('sub-directory.html' , shows=shows, category='show')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -118,19 +116,16 @@ def sign_up():
 
 @app.route('/thread/<title>/<episode>')
 @app.route('/thread/<title>')
-@app.route('/thread/<postID>')
+@app.route('/thread/<postId>')
 def thread(title=None , episode=None , postId=None):
-    if postId:
-        value = 0
-        post = db.Posts.find_one({'_id' : ObjectId(postId)})
-        return render_template('thread.html' , post = post , value = value)
-    # if not episode and film:
-    #     film = db.Films.find({"Film" : title}) 
-    #     return render_template('thread.html' , film = film)
-    # # elif episode and show:
-    #     show = db.Shows.find_one({''})
-    # else:
-    #     comments = db.Posts.find()
+    posts = None
+    if title and episode:
+        posts = db.shows.find({'Title' : title , 'Episode' : episode})
+    elif title and not episode:
+        posts = db.Film.find({'Title' : title })
+    else:
+        posts = db.Posts.find({'_id' : postId })
+    return render_template('thread.html' , posts=posts , title=title , postId=postId)
 
 @app.route('/profile')
 def profile():

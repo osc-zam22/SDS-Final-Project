@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block body %}
+    {% if film is sameas false %}
+
+    <h1>show</h1>
+    <div class="directory-container" >
+        {% for show in show %}
+            <a href="">
+                <div class="content">
+                    <p>{{show.Name}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    {%else%}
+    <h1>Film</h1>
+    <div class="directory-container" >
+        {% for film in films %}
+            <a href={{url_for('thread' , title = film.Name , category='film')}}>
+                <div class="content">
+                    <p>{{film.Name}}</p>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+{% endblock %}
+

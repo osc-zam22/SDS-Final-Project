@@ -3,32 +3,5 @@
 {% block body %}
 <h1>Thread</h1>
 
-<div>
-    {% if value == 0 %}
-    <div class="post">
-        <h1 class="author">{{post.Username}}</h1>
-        <p class="post-text">
-            {{post.Content}}
-        </p>
-    </div>
-    {% for comment in post.Comment %}
-    <div class="comment">
-        <p>{{comment}} </p>
-    </div>
-    {% endfor %}
-    {% endif %}
-    {% if session %}
-    <div class="text-field">
-        <form>
-            <textarea name="" id="post-content" cols="30" rows="10"></textarea>
-        </form>
-    </div>
-    {% endif %}
-    {% if not session %}
-    <div class="alert"> 
-        <p>you must log in to post</p>
-    </div>
-    {% endif %}
-</div>
 
 {% endblock %}
