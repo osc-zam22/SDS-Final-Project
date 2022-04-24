@@ -4,17 +4,31 @@
 <h1>Directory</h1>
     <div class="directory-container">
         
-        <div class="option">
-            <a href={{url_for('sub_directory' , film= '0' )}}>
-                <p>Film</p>
-            </a>
-        </div>
 
-        <div class="option">
-            <a href={{ url_for('sub_directory' , film = '1' )}}>
-                <p>Shows</p>
-            </a>
-        </div>
+        {% if contents %}
+            {% if contents.Episodes %}
+                <h1>{{contents.Title}}</h1>
+                {% for episode in contents.Episodes %}
+                <div class="option">
+                    <a href='/directory/{{contents.Title}}%20{{episode.Episode}}'>{{contents.Title}} episode {{episode.Episode}}</a>
+                </div>
+                {% endfor %}
+            {% else %}
+                {% for content in contents %}
+                <div class="option">
+                    <a href='/directory/{{content.Title}}'>{{content.Title}}</a>
+                </div>
+                {% endfor %}
+            {% endif %}
+
+        {% else %}
+            <div class="option">
+                <a href='/directory/Movies'>Movies</a>
+            </div>
+            <div class="option">
+                <a href='directory/Shows'>Shows</a>
+            </div>
+        {% endif %}
 
     </div>
 {% endblock %}

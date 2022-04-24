@@ -32,25 +32,46 @@ def index():
 
 # main directory, used to go into the sub directories
 @app.route('/directory')
-def directory():
-    return render_template('directory.html')
+@app.route('/directory/<title>')
+def directory(title = None):
+    if title:
+        if title == "Shows":
+            shows = db.Shows.find({})
+            return render_template('directory.html', contents = shows)
 
-@app.route('/sub_directory/<film>')
-def sub_directory(film):
-    # prints the films' name
-    if film == '0':
-        contents = db.Films.find()
-        return render_template('sub-directory.html' , contents = contents , category=0)
-    # will display the shows
-    elif film == '1':
-        contents = db.Shows.find()
-        return render_template('sub-directory.html' , contents= contents, category=1)
+        elif title == "Movies":
+            movies = db.Films.find({})
+            return render_template('directory.html', contents = movies)
 
+        else:
+            movie = db.Films.find_one({"Title": title})
+            show = db.Shows.find_one({"Title": title})
 
-@app.route('/episode_directory/<title>')
-def episode_directory(title):
-    episodes = db.Shows.find({'Title' : title} , {'Episodes' : 1})
-    return render_template('episode-directory.html' , title=title , episodes=episodes)
+            if movie:
+                return redirect(url_for('thread', title = title))
+
+            elif show:
+                return render_template('directory.html', contents = show)
+            
+            else:
+                show_episode_arr = title.split()
+                show_episode_arr.insert(len(show_episode_arr) -1, "Episode")
+                show_episode_str = " ".join(show_episode_arr)
+                return redirect(url_for('thread', title = show_episode_str))
+    else:
+        return render_template('directory.html')
+
+@app.route('/thread/<title>')
+def thread(title = None):
+    if title:
+        posts = db.Posts.find({"Film/Show": title})
+        if posts:
+            return render_template('thread.html', posts = posts)
+        else:
+            return render_template('thread.html', error = "Could not find thread for " + title + "...")
+
+    else:
+        return redirect(url_for('index'))
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -119,26 +140,6 @@ def sign_up():
             return render_template("signup.html", prompt = "username is already registered... try logging in.")
     else:
         return render_template("signup.html")
-    
-
-
-# @app.route('/thread/<title>/<episode>/<value>')
-@app.route('/thread/<title>/<value>')
-# @app.route('/thread/<postId>/<value>')
-def thread(value , title=None , episode=None , postId=None ):
-    posts = None
-    
-    if value == "1":
-        posts = db.Posts.find({'Film/Show' : title , 'Episode' : episode})
-        return render_template(url_for('thread' , posts=posts , title=title , episode = episode))
-        # return render_template('thread.html' , posts=posts , title=title , episode=episode, value = 1)
-    elif value == "2":
-        # posts = db.Posts.find({'Film/Show' : title })
-        # return render_template('thread.html' , posts=posts , title=title , value = 2)
-        return render_template('thread.html')
-    else:
-        posts = db.Posts.find({'_id' : ObjectId(postId) })
-        return render_template('thread.html' , posts=posts , postId=postId, value = 3)
 
 @app.route('/profile')
 def profile():
