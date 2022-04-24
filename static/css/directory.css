@@ -1,16 +1,40 @@
 .directory-container{
     display: grid;
-    grid-column: 1fr;
+    grid-column: 1;
     grid-row: auto;
     grid-gap: 15px;
     margin: auto 50px auto 50px;
+    background-color: yellowgreen;
 }
 
-.film{
+
+.banner{
+    display: flex;
     background-color: cornflowerblue;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap-reverse;
+    align-items: baseline;
+    border: 5px solid black;
+    margin : auto 50px auto 50px;
     
 }
 
-.show{
-    background-color: blanchedalmond;
+.logo-box{
+    order: 1;
+    flex-basis: 33%;
+}
+
+.title{
+    order: 2;
+    flex-basis: 33%;
+}
+
+.ratings{
+    order: 3;
+    flex-basis: 33%;
+}
+
+.logo{
+    width: 45px;
 }

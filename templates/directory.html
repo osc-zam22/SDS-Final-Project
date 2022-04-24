@@ -9,15 +9,25 @@
             {% if contents.Episodes %}
                 <h1>{{contents.Title}}</h1>
                 {% for episode in contents.Episodes %}
-                <div class="option">
-                    <a href='/directory/{{contents.Title}}%20{{episode.Episode}}'>{{contents.Title}} episode {{episode.Episode}}</a>
-                </div>
+                <a href='/directory/{{contents.Title}}%20{{episode.Episode}}'>
+                    <ul class="banner">
+                        <li class="logo">logo</li>
+                        <li class="title">{{contents.Title}} episode {{episode.Episode}}</li>
+                        <li class="ratings">ratings</li>
+                    </ul>
+                </a>
                 {% endfor %}
             {% else %}
                 {% for content in contents %}
-                <div class="option">
-                    <a href='/directory/{{content.Title}}'>{{content.Title}}</a>
-                </div>
+                <a href="/directory/{{content.Title}}">
+                    <ul class="banner">
+                        <li class="logo-box">
+                            <img class="logo" src={{content.Logo}} alt="">
+                        </li>
+                        <li class="title">{{content.Title}}</li>
+                        <li class="ratings">{{content.Rating}}</li>
+                    </ul>
+                </a>
                 {% endfor %}
             {% endif %}
 
