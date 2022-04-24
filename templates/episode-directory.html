@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block body %}
+    <h1>{{title}}</h1>
+    <div class="directory-container">
+        {% for episode in episodes %}
+            <div class="episode">
+                <a href="">
+                    <div class="episode">
+                        <p>episode</p>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

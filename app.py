@@ -36,7 +36,6 @@ def directory():
     return render_template('directory.html')
 
 @app.route('/sub_directory/<film>')
-# @app.route('/sub_directory/<title>')
 def sub_directory(film):
     # prints the films' name
     if film == '0':
@@ -46,16 +45,17 @@ def sub_directory(film):
     elif film == '1':
         contents = db.Shows.find()
         return render_template('sub-directory.html' , contents= contents, category=1)
-    # displays the episodes of a particular show
-    # else:
-    #     episodes = db.Shows.find({'Name' : title} , {'Episodes':1})
-    #     return render_template('sub-directory.html' , title=title , episodes = episodes)
+
+
+@app.route('/episode_directory/<title>')
+def episode_directory(title):
+    episodes = db.Shows.find({'Title' : title} , {'Episodes' : 1})
+    return render_template('episode-directory.html' , title=title , episodes=episodes)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
         users = db.Users
-
         user_email = users.find_one({"Email": request.form["Email/Username"]})
         user_username = users.find_one({"Username": request.form["Email/Username"]})
         user = None
@@ -122,20 +122,22 @@ def sign_up():
     
 
 
-@app.route('/thread/<title>/<episode>/<value>')
+# @app.route('/thread/<title>/<episode>/<value>')
 @app.route('/thread/<title>/<value>')
-@app.route('/thread/<postId>/<value>')
+# @app.route('/thread/<postId>/<value>')
 def thread(value , title=None , episode=None , postId=None ):
     posts = None
     
     if value == "1":
-        posts = db.shows.find({'Title' : title , 'Episode' : episode})
-        return render_template('thread.html' , posts=posts , title=title , episode=episode, value = 1)
+        posts = db.Posts.find({'Film/Show' : title , 'Episode' : episode})
+        return render_template(url_for('thread' , posts=posts , title=title , episode = episode))
+        # return render_template('thread.html' , posts=posts , title=title , episode=episode, value = 1)
     elif value == "2":
-        posts = db.Film.find({'Title' : title })
-        return render_template('thread.html' , posts=posts , title=title , value = 2)
+        # posts = db.Posts.find({'Film/Show' : title })
+        # return render_template('thread.html' , posts=posts , title=title , value = 2)
+        return render_template('thread.html')
     else:
-        posts = db.Posts.find({'_id' : postId })
+        posts = db.Posts.find({'_id' : ObjectId(postId) })
         return render_template('thread.html' , posts=posts , postId=postId, value = 3)
 
 @app.route('/profile')

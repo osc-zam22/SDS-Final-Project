@@ -7,8 +7,9 @@
         <div class="directory-container">
             {% for content in contents %}
                 <div class="film">
-                    <a href={{url_for( 'thread' , value= '2',  title = content.Name )}}>
+                    <a href="/thread/Avengers/2">
                         <p>{{ content.Name }}</p>
+                        <div></div>
                     </a>
                 </div>
             {% endfor %}
@@ -18,24 +19,12 @@
         <div class="directory-container">
             {% for content in contents %}
                 <div class="show">
-                    <a href={{url_for('sub_directory' , film = '0')}}>
+                    <a href={{url_for('episode_directory' , title= content.Name )}}>
                         <p>{{ content.Name }}</p>
                     </a>
                 </div>
             {% endfor %}
         </div>
-    {% else %}
-    <h1>{{title}}</h1>
-    <h1>episode branch</h1>
-    <div class="directory-container">
-        {% for episode in episode %}
-            <div class="episode">
-                <a href="">
-                    <p>{{episode.Name}}</p>
-                </a>
-            </div>
-        {% endfor %}
-    </div>
     {% endif %}
 
 {% endblock %}
