@@ -6,8 +6,8 @@
         <h1>Film</h1>
         <div class="directory-container">
             {% for content in contents %}
-                <div class="film"
-                    <a href="">
+                <div class="film">
+                    <a href={{url_for( 'thread' , value= '2',  title = content.Name )}}>
                         <p>{{ content.Name }}</p>
                     </a>
                 </div>
@@ -18,7 +18,7 @@
         <div class="directory-container">
             {% for content in contents %}
                 <div class="show">
-                    <a href={{url_for('sub_directory' , title=content.Name)}}>
+                    <a href={{url_for('sub_directory' , film = '0')}}>
                         <p>{{ content.Name }}</p>
                     </a>
                 </div>

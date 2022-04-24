@@ -30,21 +30,26 @@ app.secret_key = secrets.token_urlsafe(17)
 def index():
     return render_template('index.html')
 
+# main directory, used to go into the sub directories
 @app.route('/directory')
 def directory():
     return render_template('directory.html')
 
 @app.route('/sub_directory/<film>')
-@app.route('/sub_directory/<title>')
-def sub_directory(film=None , title=None):
+# @app.route('/sub_directory/<title>')
+def sub_directory(film):
+    # prints the films' name
     if film == '0':
         contents = db.Films.find()
         return render_template('sub-directory.html' , contents = contents , category=0)
+    # will display the shows
     elif film == '1':
         contents = db.Shows.find()
         return render_template('sub-directory.html' , contents= contents, category=1)
-    episodes = db.Shows.find({'Title' : title} , {'Episodes':1})
-    return render_template('sub-directory.html' , title=title , episodes = episodes)
+    # displays the episodes of a particular show
+    # else:
+    #     episodes = db.Shows.find({'Name' : title} , {'Episodes':1})
+    #     return render_template('sub-directory.html' , title=title , episodes = episodes)
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -117,19 +122,21 @@ def sign_up():
     
 
 
-@app.route('/thread/<title>/<episode>')
-@app.route('/thread/<title>')
-@app.route('/thread/<postId>')
-def thread(title=None , episode=None , postId=None):
+@app.route('/thread/<title>/<episode>/<value>')
+@app.route('/thread/<title>/<value>')
+@app.route('/thread/<postId>/<value>')
+def thread(value , title=None , episode=None , postId=None ):
     posts = None
     
-    if title and episode:
+    if value == "1":
         posts = db.shows.find({'Title' : title , 'Episode' : episode})
-    elif title and not episode:
+        return render_template('thread.html' , posts=posts , title=title , episode=episode, value = 1)
+    elif value == "2":
         posts = db.Film.find({'Title' : title })
+        return render_template('thread.html' , posts=posts , title=title , value = 2)
     else:
         posts = db.Posts.find({'_id' : postId })
-    return render_template('thread.html' , posts=posts , title=title , postId=postId)
+        return render_template('thread.html' , posts=posts , postId=postId, value = 3)
 
 @app.route('/profile')
 def profile():
