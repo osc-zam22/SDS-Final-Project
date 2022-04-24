@@ -5,15 +5,22 @@
     width: 400px;
     background-color: rgba(99, 10, 10, 0.685);
     position: relative;
-    transform: translate(-50%,-50%);
-    top: 50%;
-    left: 50%;
     border-radius: 10px;
     backdrop-filter: blur(10px);
     border: 2px solid rgba(255,255,255,0.1);
     box-shadow: 0 0 40px rgba(8,7,16,0.6);
     padding: 50px 35px;
-    margin-top: 485px;
+    margin: 140px auto;
+}
+
+.container.profile{
+    width: 900px;
+}
+
+.container.profile-posts{
+    position: relative;
+    width: 700px;
+    margin: 50px auto;
 }
 
 .container *{
@@ -22,6 +29,21 @@
     letter-spacing: 0.5px;
     outline: none;
     border: none;
+}
+
+.container h1{
+    font-size: 45px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: center;
+}
+
+.container h2{
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 42px;
+    text-align: left;
+    padding: 25px;
 }
 
 .container h3{

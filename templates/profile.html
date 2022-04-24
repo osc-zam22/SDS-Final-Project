@@ -1,14 +1,39 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1>Profile</h1>
- <p>{{profile.Username}}</p>
- <p>{{profile.Email}}</p>
- <div class="post-history">
-     {% for post in profile.Posts %}
-     <div class="post-container">
-        <p>{{post}}</p>
-     </div>
-     {% endfor %}
- </div>
+
+<div class="container profile">
+    <h1>
+        Profile
+    </h1>
+    <h2>
+        Username: {{profile.Username}}
+    </h2>
+    <h2>
+        Email: {{profile.Email}}
+    </h2>
+
+    {% if not profile.Posts %}
+    <div class="container profile-posts">
+        <h3>No posts yet!</h3> 
+    </div>
+    {% else %}
+    <h2>Post History:</h2>
+    {% for post in profile.Posts %}
+    <div class="container profile-posts">
+        <h3>
+            {{post["Film/Show"]}}
+        </h3>
+        <h4>
+            {{post.Content}}
+        </h4>
+        <h4>
+            Likes: {{post.Likes}}
+        </h4>
+    </div>
+
+    {% endfor %}
+    {% endif %}
+    
+</div>
 {% endblock %}
