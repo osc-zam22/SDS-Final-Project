@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster&family=Rubik+Beastly&display=swap');
 
-.heading{
-    margin-bottom: 50px;
-}
-
+/* main container of the page */
 .directory-container{
     display: grid;
     grid-column: 1;
@@ -13,7 +10,7 @@
 
 }
 
-
+/* flex containers for the banners */
 .banner{
     display: flex;
     justify-content: space-around;
@@ -32,6 +29,7 @@
     height: 200px;
 }
 
+/* flex containers for the banners */
 .category-banner{
     display: flex;
     justify-content: space-around;
@@ -60,6 +58,7 @@
     text-decoration: none; /* no underline */
 } 
 
+/* hover animations for the boxes */
 .category-banner:hover{
     background-image: url("../images/marvel-cinematic-universe-background-edited.png");
     background-repeat: no-repeat;
