@@ -22,13 +22,10 @@
     {% for post in profile.Posts %}
     <div class="container profile-posts">
         <h3>
-            {{post["Film/Show"]}}
+            {{post.Title}}
         </h3>
         <h4>
             {{post.Content}}
-        </h4>
-        <h4>
-            Likes: {{post.Likes}}
         </h4>
     </div>
 

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container thread">
+    <h1>{{post.Title}}</h1>
+
+    <div class="container thread-posts">
+        <h1>Post</h1> 
+        <h2>{{post.Username}}</h2>
+        <h4>{{post.Content}}</h4>
+    </div>
+
+    <h2>Comments:</h2>
+    {% if post.Comments %}
+
+    {% for comment in post.Comments%}
+    <div class="container thread-posts">
+        <h2>{{comment.Username}}</h2>
+        <h4>{{comment.Content}}</h4>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="container thread-posts">
+        <h1>No comments yet!</h1> 
+    </div>
+    {% endif %}
+
+    {% if session %}
+    <form class="container thread-posts" method="POST" action="/comment/{{postID}}">
+        <textarea type="text" name="content" cols="102" rows="5" style="background-color: black;"></textarea>
+        <button>Post Comment</button>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
