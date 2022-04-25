@@ -1,10 +1,10 @@
+from ast import Raise
+
+
 def increment_likes(like):
-    return like + 1
-
-def increment_num_ratings(num_ratings):
-    return num_ratings + 1
-
-def rating(num_ratings , curr_ratings , new_rating):
-    num_ratings = increment_num_ratings(num_ratings)
-    return (curr_ratings + new_rating) / num_ratings 
+    if type(like) in [int]:
+        if like < 0:
+            raise ValueError("likes cannot be negative")
+        return like + 1
+    raise TypeError("this is not an intenger")
 
