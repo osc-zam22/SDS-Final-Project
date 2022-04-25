@@ -84,3 +84,10 @@
     padding: 10px 10px 10px 10px;
 }
 
+.category-banner:hover .text{
+    font-size: 44pt;
+    font-weight: bolder;
+    color: white;
+    background-color: red;
+    padding: 10px 10px 10px 10px;
+}
