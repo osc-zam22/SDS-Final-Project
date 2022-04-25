@@ -1,9 +1,14 @@
+
+.heading{
+    margin-bottom: 50px;
+}
+
 .directory-container{
     display: grid;
     grid-column: 1;
     grid-row: auto;
     grid-gap: 15px;
-    margin: auto 50px auto 50px;
+    margin: auto 50px 50px 50px;
 
 }
 
