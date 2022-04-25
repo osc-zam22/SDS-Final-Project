@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container thread">
+    <h1>{{title}}</h1>
+
+    <form class="container thread-posts" method="POST" action="/post/{{title}}">
+        <textarea type="text" name="content" cols="102" rows="5" style="background-color: black;"></textarea>
+        <button>Post</button>
+    </form>
+</div>
+{% endblock %}

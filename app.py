@@ -6,6 +6,7 @@ import secrets
 import bcrypt
 import random
 import os
+from model import increment_likes
 
 #Initialize application
 app = Flask(__name__)
@@ -64,11 +65,19 @@ def directory(title = None):
 @app.route('/thread/<title>')
 def thread(title = None):
     if title:
-        posts = db.Posts.find({"Film/Show": title})
-        if posts:
-            return render_template('thread.html', posts = posts)
+        posts = db.Posts.find({"Title": title})
+
+        posts_length = 0
+        posts_arr = []
+        
+        for post in posts:
+            posts_arr.append(post)
+            posts_length += 1
+
+        if posts_length != 0:
+            return render_template('thread.html', posts = posts_arr, title = title)
         else:
-            return render_template('thread.html', error = "Could not find thread for " + title + "...")
+            return render_template('thread.html', title = title)
 
     else:
         return redirect(url_for('index'))
@@ -154,4 +163,47 @@ def logout():
     session.clear()
     return render_template('index.html')
 
+@app.route('/post_page/<title>')
+def post_page(title):
+    if session:
+        return render_template('post.html', title = title)
+    else:
+        return "login pls"
 
+@app.route('/like/<postID>')
+def like(postID):
+    if session:
+        post = db.Posts.find_one({"_id": ObjectId(postID)})
+        updated_likes = increment_likes(post["Likes"])
+
+        db.Posts.update_one({"_id": ObjectId(postID)}, {"$set":{"Likes": updated_likes}})
+
+        return redirect(url_for('thread', title = post['Title']))
+    else:
+        return "login pls"
+
+@app.route('/comment_page/<postID>')
+def comment_page(postID):
+    post = db.Posts.find_one({"_id": ObjectId(postID)})
+    return render_template('comment.html', postID = postID, post = post)
+
+@app.route('/post/<title>',  methods = ['GET','POST'])
+def post(title):
+    if session:
+        content = request.form["content"]
+        user = db.Users.find_one({"Email": session["Email"]})
+
+        db.Posts.insert_one({"Username": user["Username"], "Likes": 0, "Content": content, "Title": title, "Comments": []})
+        db.Users.update_one({"Email": session["Email"]}, {"$push" : {"Posts" : {"Username": user["Username"], "Likes": 0, "Content": content, "Title": title, "Comments": []}}})
+        return redirect(url_for('thread', title = title))
+
+    else: 
+        return "login pls"
+
+@app.route('/comment/<postID>', methods = ['GET', 'POST'])
+def comment(postID):
+    content = request.form['content']
+    user = db.Users.find_one({"Email": session["Email"]})
+
+    db.Posts.update_one({"_id": ObjectId(postID)}, {"$push" : {"Comments": {"Username": user["Username"], "Content": content}}})
+    return redirect(url_for('comment_page', postID = postID))

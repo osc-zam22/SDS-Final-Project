@@ -1,15 +1,38 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1>Thread</h1>
-    <!-- {% if value == 1 %}
-        <h2>title and episode branch</h2>
-        
-    {% elif value == 2 %}
-        <h2> title only branch</h2>
+<div class="container thread">
+    <div class="thread-grid">
+        <div>
+            <h1>{{title}}</h1>
+        </div>
+        <div class="thread-button">
+            <a href="/post_page/{{title}}"><button>Post</button></a>
+        </div>
+    </div>
 
-    {% elif value == 3 %}
-        <h2>post and comments branch</h2> -->
+    {% if posts %}
+    {% for post in posts %}
+    <div class="container thread-posts">
+        <h2>{{post.Username}}</h2>
+        <h4>{{post.Content}}</h4>
+        <div class="thread-grid">
+            <div class="thread-button">
+                <a href="/like/{{post._id}}"><i class="material-icons">favorite</i></a>
+                <h3>{{post.Likes}}</h3>
+            </div>
+            <div class="thread-button">
+                <a href="/comment_page/{{post._id}}"><button>View comments</button></a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="container thread-posts">
+        <h1>No Posts yet!</h1> 
+        <h1>Post to spark the conversation!</h1>
+    </div>
     {% endif %}
+</div>
 
 {% endblock %}
