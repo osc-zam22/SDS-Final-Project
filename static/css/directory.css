@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lobster&family=Rubik+Beastly&display=swap');
 
 .heading{
     margin-bottom: 50px;
@@ -8,7 +9,7 @@
     grid-column: 1;
     grid-row: auto;
     grid-gap: 15px;
-    margin: auto 50px 50px 50px;
+    margin: 200px 50px 200px 50px;
 
 }
 
@@ -31,16 +32,6 @@
     height: 200px;
 }
 
-.title{
-    order: 1;
-    flex-basis: auto;
-}
-
-.ratings{
-    order: 2;
-    flex-basis: auto;
-}
-
 .category-banner{
     display: flex;
     justify-content: space-around;
@@ -57,14 +48,16 @@
 }
 
 .text{
-    font-family: Montserrat;
-    font-size: 32pt;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 44pt;
     font-weight: bolder;
     flex-basis: auto;
+    color:black;
+    padding: 10px 10px 10px 10px;
 }
+
 .banner-link{
     text-decoration: none; /* no underline */
-    color: rgba(8,7,16,0.6);
 } 
 
 .category-banner:hover{
@@ -72,8 +65,7 @@
     background-repeat: no-repeat;
     background-color: transparent;
     background-size: cover;
-    transition-duration: 1s ;
-    
+    transition-duration: 1s ; 
 }
 
 .banner:hover{
@@ -84,18 +76,11 @@
     transition-duration: 1s ;
 }
 
-.text:hover{
-    font-family: Montserrat;
-    font-size: 32pt;
+.banner:hover .text{
+    font-size: 44pt;
     font-weight: bolder;
-    color: transparent;
+    color: white;
+    background-color: red;
+    padding: 10px 10px 10px 10px;
 }
 
-.banner-link:hover .banner{
-
-    background-image: url("../images/marvel-cinematic-universe-background-edited.png");
-    background-color: transparent;
-    background-size: cover;
-    background-repeat: no-repeat;
-    transition-duration: 1s ;
-}

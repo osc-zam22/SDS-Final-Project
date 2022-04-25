@@ -1,5 +1,5 @@
 import unittest
-from model import increment_num_ratings , increment_likes, rating
+from model import increment_likes
 
 class testModel(unittest.TestCase):
     
@@ -8,3 +8,5 @@ class testModel(unittest.TestCase):
     def test_increment_likes(self):
         self.assertEquals(increment_likes(0) , 1)
         self.assertNotEqual(increment_likes(0) , 0)
+        self.assertRaises(TypeError , increment_likes , "not an int")
+        self.assertRaises(ValueError , increment_likes , -1)
