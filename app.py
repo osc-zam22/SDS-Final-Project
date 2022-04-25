@@ -168,7 +168,7 @@ def post_page(title):
     if session:
         return render_template('post.html', title = title)
     else:
-        return "login pls"
+        return render_template('login-signup.html')
 
 @app.route('/like/<postID>')
 def like(postID):
@@ -180,7 +180,7 @@ def like(postID):
 
         return redirect(url_for('thread', title = post['Title']))
     else:
-        return "login pls"
+        return render_template('login-signup.html')
 
 @app.route('/comment_page/<postID>')
 def comment_page(postID):
@@ -197,8 +197,8 @@ def post(title):
         db.Users.update_one({"Email": session["Email"]}, {"$push" : {"Posts" : {"Username": user["Username"], "Likes": 0, "Content": content, "Title": title, "Comments": []}}})
         return redirect(url_for('thread', title = title))
 
-    else: 
-        return "login pls"
+    else:
+        return render_template('login-signup.html')
 
 @app.route('/comment/<postID>', methods = ['GET', 'POST'])
 def comment(postID):
