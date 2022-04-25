@@ -6,8 +6,6 @@
 
         {% if contents %}
             {% if contents.Episodes %}
-                <h1>{{contents.Title}}</h1>
-                
                     {% for episode in contents.Episodes %}
                     <a class="banner-link" href='/directory/{{contents.Title}}%20{{episode.Episode}}'>
                         <ul class="banner">
