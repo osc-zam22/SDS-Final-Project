@@ -8,7 +8,7 @@
     grid-column: 1;
     grid-row: auto;
     grid-gap: 15px;
-    margin: auto 50px 50px 50px;
+    margin: 200px 50px 200px 50px;
 
 }
 
@@ -29,16 +29,6 @@
     max-width: auto;
     min-width: 300;
     height: 200px;
-}
-
-.title{
-    order: 1;
-    flex-basis: auto;
-}
-
-.ratings{
-    order: 2;
-    flex-basis: auto;
 }
 
 .category-banner{
@@ -62,6 +52,7 @@
     font-weight: bolder;
     flex-basis: auto;
 }
+
 .banner-link{
     text-decoration: none; /* no underline */
     color: rgba(8,7,16,0.6);

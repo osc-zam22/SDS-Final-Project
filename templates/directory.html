@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-<h1 class="heading">Directory</h1>
 
       <div class="directory-container">  
 
@@ -13,7 +12,6 @@
                     <a class="banner-link" href='/directory/{{contents.Title}}%20{{episode.Episode}}'>
                         <ul class="banner">
                             <li class="title text">{{contents.Title}} episode {{episode.Episode}}</li>
-                            <li class="ratings text">ratings</li>
                         </ul>
                     </a>
                     {% endfor %}
@@ -23,8 +21,6 @@
                 {% for content in contents %}
                     <a class="banner-link" href="/directory/{{content.Title}}">
                         <ul class="banner">
-                            <li class="title text">{{content.Title}}</li>
-                            <li class="ratings text">Ratings: {{content.Rating}}</li>
                         </ul>
                     </a>
                 {% endfor %}
