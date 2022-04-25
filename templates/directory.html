@@ -2,42 +2,45 @@
 
 {% block body %}
 <h1>Directory</h1>
-    <div class="directory-container">
-        
+
+      <div class="directory-container">  
 
         {% if contents %}
             {% if contents.Episodes %}
                 <h1>{{contents.Title}}</h1>
-                {% for episode in contents.Episodes %}
-                <a href='/directory/{{contents.Title}}%20{{episode.Episode}}'>
-                    <ul class="banner">
-                        <li class="logo">logo</li>
-                        <li class="title">{{contents.Title}} episode {{episode.Episode}}</li>
-                        <li class="ratings">ratings</li>
-                    </ul>
-                </a>
-                {% endfor %}
+                
+                    {% for episode in contents.Episodes %}
+                    <a class="banner-link" href='/directory/{{contents.Title}}%20{{episode.Episode}}'>
+                        <ul class="banner">
+                            <li class="title text">{{contents.Title}} episode {{episode.Episode}}</li>
+                            <li class="ratings text">ratings</li>
+                        </ul>
+                    </a>
+                    {% endfor %}
+            
             {% else %}
+                
                 {% for content in contents %}
-                <a href="/directory/{{content.Title}}">
-                    <ul class="banner">
-                        <li class="logo-box">
-                            <img class="logo" src={{content.Logo}} alt="">
-                        </li>
-                        <li class="title">{{content.Title}}</li>
-                        <li class="ratings">{{content.Rating}}</li>
-                    </ul>
-                </a>
+                    <a class="banner-link" href="/directory/{{content.Title}}">
+                        <ul class="banner">
+                            <li class="title text">{{content.Title}}</li>
+                            <li class="ratings text">Ratings: {{content.Rating}}</li>
+                        </ul>
+                    </a>
                 {% endfor %}
             {% endif %}
-
+    
         {% else %}
-            <div class="banner">
-                <a href='/directory/Movies'>Movies</a>
-            </div>
-            <div class="banner">
-                <a href='directory/Shows'>Shows</a>
-            </div>
+            <a class="banner-link" href='/directory/Movies'>
+                <ul class="category-banner">
+                    <li class="category"><p class="text">Film</p></li>
+                </ul>
+            </a>
+            <a class="banner-link" href='directory/Shows'>
+                <ul class="category-banner">
+                    <li class="category text">Shows</li>
+                </ul>
+            </a>
         {% endif %}
 
     </div>
