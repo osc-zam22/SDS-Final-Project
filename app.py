@@ -24,20 +24,32 @@ db = client.Marverse
 #Setting secret key
 app.secret_key = secrets.token_urlsafe(17)
 
+'''
+Route to / and /index
+This is the landing page.
+'''
 @app.route('/')
 @app.route('/index')
 def index():
     return render_template('index.html')
 
-# main directory, used to go into the sub directories
+'''
+Route to /directory and /directory/<title>
+Directory is used to load up and navigate movies, shows, and episodes.
+The directory will determine what is loaded up by passing in the title.
+Once the directory has been passed in with a specific movie/episode
+it will redirect to the thread route for that specific title.
+'''
 @app.route('/directory')
 @app.route('/directory/<title>')
 def directory(title = None):
     if title:
+        #Load directory with all shows
         if title == "Shows":
             shows = db.Shows.find({})
             return render_template('directory.html', contents = shows)
 
+        #Load directory with all movies
         elif title == "Movies":
             movies = db.Films.find({})
             return render_template('directory.html', contents = movies)
@@ -45,26 +57,32 @@ def directory(title = None):
         else:
             movie = db.Films.find_one({"Title": title})
             show = db.Shows.find_one({"Title": title})
-
+            #Is movies and will redirect to thread
             if movie:
                 return redirect(url_for('thread', title = title))
-
+            #Is show and will load up directory with episodes
             elif show:
                 return render_template('directory.html', contents = show)
-            
+            #Is episode and will redirect to thread
             else:
                 show_episode_arr = title.split()
                 show_episode_arr.insert(len(show_episode_arr) -1, "Episode")
                 show_episode_str = " ".join(show_episode_arr)
                 return redirect(url_for('thread', title = show_episode_str))
+    #Render base directory
     else:
         return render_template('directory.html')
 
+'''
+Route to /thread/<title>
+Displays thread for specific title.
+Renders thread.html with posts.
+'''
 @app.route('/thread/<title>')
 def thread(title = None):
     if title:
+        #Searching for all posts with title
         posts = db.Posts.find({"Title": title})
-
         posts_length = 0
         posts_arr = []
         
@@ -72,14 +90,22 @@ def thread(title = None):
             posts_arr.append(post)
             posts_length += 1
 
+        #Returns all posts for title
         if posts_length != 0:
             return render_template('thread.html', posts = posts_arr, title = title)
+        #Returns thread with no posts
         else:
             return render_template('thread.html', title = title)
 
     else:
         return redirect(url_for('index'))
 
+'''
+Route to /login
+Takes in username/email and password from form.
+Validates the username/email and password by checking with the mongodb Users database.
+If successful a new session with user's email is initiated.
+'''
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -113,7 +139,13 @@ def login():
     else:
         return render_template('login.html')
 
-
+'''
+Route to /signup
+Takes in username, email, and password from form.
+Validates that it is a new user by checking with the mongodb Users database.
+Encrypts password and adds new User to Users database.
+If successful a new session with user's email is initiated.
+'''
 @app.route('/signup' , methods = ['GET' , 'POST'])
 def sign_up():
     if request.method == 'POST':
@@ -148,6 +180,11 @@ def sign_up():
     else:
         return render_template("signup.html")
 
+'''
+Route to /profile
+Finds profile by checking the User database with the session email.
+Renders profile.html with the profile document.
+'''
 @app.route('/profile')
 def profile():
     if not session:
@@ -156,11 +193,20 @@ def profile():
   
     return render_template('profile.html' , profile = profile)
 
+'''
+Route to /logout
+Clears the session and renders index.html
+'''
 @app.route('/logout')
 def logout():
     session.clear()
     return render_template('index.html')
 
+'''
+Route /post_page/<title>
+Renders post.html for title.
+If not in session it will redirect to login-signup.html
+'''
 @app.route('/post_page/<title>')
 def post_page(title):
     if session:
@@ -168,6 +214,12 @@ def post_page(title):
     else:
         return render_template('login-signup.html')
 
+'''
+Route to /like/<postID>
+Will find post based on postID and increment the like count by 1.
+After incrementing like it will render thread again for the title of post.
+If not in session it will redirect to login-signup.html
+'''
 @app.route('/like/<postID>')
 def like(postID):
     if session:
@@ -180,17 +232,30 @@ def like(postID):
     else:
         return render_template('login-signup.html')
 
+'''
+Route to /comment_page/<postID>
+Will find post based on postID.
+Renders comment.html with postID and post.
+'''
 @app.route('/comment_page/<postID>')
 def comment_page(postID):
     post = db.Posts.find_one({"_id": ObjectId(postID)})
     return render_template('comment.html', postID = postID, post = post)
 
+'''
+Route to /post/<title>
+Will get content from form and user based on session email.
+Inserts post document into Posts database and Users database.
+After successful post it will redirect to thread.html with title.
+If not in session it will redirect to login-signup.html
+'''
 @app.route('/post/<title>',  methods = ['GET','POST'])
 def post(title):
     if session:
         content = request.form["content"]
         user = db.Users.find_one({"Email": session["Email"]})
-
+        
+        #Inserts into Posts dabase and User's posts array
         db.Posts.insert_one({"Username": user["Username"], "Likes": 0, "Content": content, "Title": title, "Comments": []})
         db.Users.update_one({"Email": session["Email"]}, {"$push" : {"Posts" : {"Username": user["Username"], "Likes": 0, "Content": content, "Title": title, "Comments": []}}})
         return redirect(url_for('thread', title = title))
@@ -198,6 +263,12 @@ def post(title):
     else:
         return render_template('login-signup.html')
 
+'''
+Route to /comment/<postID>
+Will get content from form and user based on session email.
+Inserts comment document into post comments array.
+After successful comment post it will redirect to thread.html with title.
+'''
 @app.route('/comment/<postID>', methods = ['GET', 'POST'])
 def comment(postID):
     content = request.form['content']
